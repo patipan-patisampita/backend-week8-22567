@@ -6,6 +6,15 @@
             Add category
         </div>
         <div class="card-body p-4">
+            
+            @if ($errors->any)
+            <div class="alert alert-danger" role="alert">
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+            @endif
+
             <form action="{{route('admin.category.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 
