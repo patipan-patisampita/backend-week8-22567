@@ -40,23 +40,6 @@ class CategoryController extends Controller
             'status' => 'nullable',
             'created_by' => 'nullable'
         ]);
-
-        $slug = Str::slug($request->name);
-        $created_by = Auth::guard('admin')->id();
-
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('uploads/images'), $imageName);
-
-        $category = new Category();
-        $category->name = $request->name;
-        $category->slug = $slug;
-        $category->description = $request->description;
-        $category->image = $imageName;
-        $category->status = $request->status == true ? '1' : '0';
-        $category->created_by = $created_by;
-        $category->save();
-
-        return redirect()->route('admin.category.index')->with('success','Category created successfully.');
     }
 
     /**
