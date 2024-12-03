@@ -6,8 +6,8 @@
             Add category
         </div>
         <div class="card-body p-4">
-            
-            @if ($errors->any)
+
+            @if ($errors->any())
             <div class="alert alert-danger" role="alert">
                 @foreach ($errors->all() as $error)
                     <div>{{ $error }}</div>

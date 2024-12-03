@@ -36,7 +36,7 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
             'description' => 'required',
-            'image' => 'required|image|mimes:png,jpg,jpeg,gif',
+            'image' => 'image|mimes:png,jpg,jpeg,gif',
             'status' => 'nullable',
             'created_by' => 'nullable'
         ]);
@@ -44,14 +44,14 @@ class CategoryController extends Controller
         $slug = Str::slug($request->name);
         $created_by = Auth::guard('admin')->id();
 
-        $imageName = time() . '.' . $request->image->extends();
+        $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('uploads/images'), $imageName);
 
         $category = new Category();
         $category->name = $request->name;
         $category->slug = $slug;
         $category->description = $request->description;
-        $category->image = 'images/' . $imageName;
+        $category->image = $imageName;
         $category->status = $request->status == true ? '1' : '0';
         $category->created_by = $created_by;
         $category->save();
